@@ -38,8 +38,9 @@ function buildMetaTags(link: Link, baseUrl: string) {
   return { title, tags }
 }
 
-export function generateCloakingHtml(link: Link, targetUrl: string, baseUrl: string): string {
+export function generateCloakingHtml(link: Link, baseUrl: string): string {
   const { title, tags } = buildMetaTags(link, baseUrl)
+  const cloakUrl = `/_cloak/${encodeURIComponent(link.slug)}`
 
   return `<!DOCTYPE html>
 <html>
@@ -50,8 +51,8 @@ export function generateCloakingHtml(link: Link, targetUrl: string, baseUrl: str
     ${tags}
 </head>
 <body style="margin:0;overflow:hidden">
-    <iframe src="${escape(targetUrl)}" style="width:100%;height:100%;width:100vw;height:100vh;border:none" sandbox="${CLOAKING_IFRAME_SANDBOX}" allowfullscreen referrerpolicy="no-referrer"></iframe>
-    <noscript><meta http-equiv="refresh" content="0;url=${escape(targetUrl)}"></noscript>
+    <iframe src="${escape(cloakUrl)}" style="width:100%;height:100%;width:100vw;height:100vh;border:none" sandbox="${CLOAKING_IFRAME_SANDBOX}" allowfullscreen referrerpolicy="no-referrer"></iframe>
+    <noscript><p>JavaScript is required to view this page.</p></noscript>
 </body>
 </html>`
 }

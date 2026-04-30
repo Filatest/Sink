@@ -164,7 +164,7 @@ export default eventHandler(async (event) => {
 
       if (link.cloaking) {
         const baseUrl = `${getRequestProtocol(event)}://${getRequestHost(event)}`
-        const html = generateCloakingHtml(link, targetUrl, baseUrl)
+        const html = generateCloakingHtml(link, baseUrl)
         setHeader(event, 'Content-Type', 'text/html; charset=utf-8')
         setHeader(event, 'Cache-Control', 'no-store, private')
         return html
